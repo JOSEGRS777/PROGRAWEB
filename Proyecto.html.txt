@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP del Clima</title>
+
+    <!-- enlace a bootstap, fontsgoogle para iconos y .css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block" />
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    
+    <main class="main-container d-flex justify-content-center align-items-center rounded-4"> <!-- Contenedor principal con flexbox para centrar el contenido -->
+        <div class="main-container bg-dark p-4 rounded-4 text-white">   <!-- Contenedor con fondo oscuro, padding, bordes redondeados y texto blanco, en el css se modifico -->
+
+            <!-- Input Section -->
+            <!-- Contenedor del input de búsqueda y botón -->
+            <header class="input-container d-flex align-items-center mb-3">
+                
+                <div class="position-relative w-100"> <!-- Contenedor con posición relativa para el input y el botón -->
+                    <input class="city-input form-control rounded-pill pe-5" placeholder="Buscar Ciudad" type="text">  <!-- Campo de texto para buscar ciudad -->
+
+                    <button class="search-btn btn position-absolute end-0 top-50 translate-middle-y me-2 border-0 bg-transparent p-0">  <!-- Botón de búsqueda con ícono, posicionado a la derecha del input -->
+                        <span class="material-symbols-outlined text-secondary">search</span>
+                    </button>
+
+                </div>
+
+            </header>
+        
+            <!-- Weather Info Section -->
+            <section class="weather-info" >
+
+                <!-- Contenedor de ubicación y fecha actual -->
+                <div class="location-date-container d-flex justify-content-between mb-3">
+                    <div class="location d-flex align-items-center gap-2">   <!-- Contenedor de la ubicación con el ícono y el nombre de la ciudad -->
+                        <span class="material-symbols-outlined">location_on</span>   <!-- Ícono de ubicación -->
+                        <h4 class="country-txt">San Salvador</h4>  <!-- Nombre de la ciudad -->
+                    </div>
+                    <h6 class="current-date-txt">Viernes, 04 Abril</h6>   <!-- Fecha actual -->
+                </div>
+
+                <!-- Contenedor del resumen del clima: muestra el ícono del clima y la temperatura con su condición -->
+                <div class="weather-summary-container d-flex justify-content-between mb-3">
+                    <img src="assets/weather/clouds.svg" class="weather-summary-img" />    <!-- Ícono que representa el clima actual -->
+                    <div class="weather-summary-info text-end">  <!-- Contenedor de la información del clima, alineada a la derecha -->
+                        <h1 class="temp-txt">29 °C</h1>
+                        <h3 class="condition-txt">Nubes</h3>
+                    </div>
+                </div>
+
+                <!-- Contenedor de condiciones meteorológicas como humedad y velocidad del viento -->
+                <div class="weather-conditions-container d-flex justify-content-between mb-3">
+                    <div class="condition-item d-flex align-items-center gap-2"> <!-- Item que muestra la humedad con un ícono y valor -->
+                        <span class="material-symbols-outlined">water_drop</span> <!-- Ícono de humedad -->
+                        <div class="condition-info">  <!-- Contenedor que agrupa la información -->
+                            <h6 class="humidity-txt">Humedad</h6> <!-- Título: Humedad -->
+                            <h6 class="humidity-value-txt">55%</h6> <!-- Valor de la humedad -->
+                        </div>
+                    </div>
+
+                    <!-- Item para mostrar la velocidad del viento con un ícono y su valor -->
+                    <div class="condition-item d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined">air</span>  <!-- Ícono de viento -->
+                        <div class="condition-info">   <!-- Contenedor que agrupa la información -->
+                            <h6 class="wind-text">Vel. del Viento</h6> <!-- Título: Velocidad del viento -->
+                            <h6 class="wind-value-txt">2 M/s</h6> <!-- Valor de la velocidad del viento -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Contenedor de pronóstico del tiempo a los 4 dias siguientes. Cada "forecast-item" muestra la fecha, 
+                    el icono del clima y la temperatura de un día. El contenedor "forecast-items-container" 
+                    usa flexbox para distribuir los elementos con espacio entre ellos (gap) y permite 
+                    el desplazamiento horizontal si hay más elementos de los que caben en una fila. -->
+
+                <div class="forecast-items-container d-flex gap-3 overflow-auto pb-3">
+                    <div class="forecast-item bg-light p-2 rounded-3">
+                        <h5 class="forecast-item-date">06 Abril</h5>
+                        <img src="assets/weather/thunderstorm.svg" class="forecast-item-img" />
+                        <h5 class="forecast-item-temp">29 °C</h5>
+                    </div>
+                    <div class="forecast-item bg-light p-2 rounded-3">
+                        <h5 class="forecast-item-date">06 Abril</h5>
+                        <img src="assets/weather/thunderstorm.svg" class="forecast-item-img" />
+                        <h5 class="forecast-item-temp">29 °C</h5>
+                    </div>
+                    <div class="forecast-item bg-light p-2 rounded-3">
+                        <h5 class="forecast-item-date">06 Abril</h5>
+                        <img src="assets/weather/thunderstorm.svg" class="forecast-item-img" />
+                        <h5 class="forecast-item-temp">29 °C</h5>
+                    </div>
+                    <div class="forecast-item bg-light p-2 rounded-3">
+                        <h5 class="forecast-item-date">06 Abril</h5>
+                        <img src="assets/weather/thunderstorm.svg" class="forecast-item-img" />
+                        <h5 class="forecast-item-temp">29 °C</h5>
+                    </div> 
+                </div>
+
+            </section>
+
+            <!-- Sección para buscar ciudad, oculta inicialmente con "display: none;" -->
+            <section class="search-city section-message" style="display: none;">
+                <img src="assets/message/search-city.png" class="img-fluid centered-img" />  <!-- Imagen responsiva que se adapta al contenedor y está centrada -->
+                    <div>
+                        <h5 class="message-c text-primary">Buscar Ciudad</h5> <!-- Título en azul text-primary -->
+                        <h6 class="message-info-c text-white">Averigua las condiciones meteorológicas de la Ciudad</h6> <!-- Descripción en blanco text-white -->
+                    </div>
+            </section>
+
+            <!-- Sección no encontro la ciudad, oculta inicialmente con "display: none;" -->
+            <section class="not-found section-message" style="display: none;" >
+                <img src="assets/message/not-found.png" class="img-fluid centered-img" />  <!-- Imagen responsiva que se adapta al contenedor y está centrada -->
+                    <div>
+                        <h5 class="message-not text-primary">No se encontro la ciudad</h5> <!-- Título en azul text-primary -->
+                        <h6 class="message-info text-white">Asegúrate de escribir correctamente el nombre de la ciudad.</h6> <!-- Descripción en blanco text-white -->
+                    </div>
+            </section>
+
+
+        </div>
+    </main>
+
+    <!-- enlace a js de bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scrip.js"></script>
+    
+</body>
+</html>
 
