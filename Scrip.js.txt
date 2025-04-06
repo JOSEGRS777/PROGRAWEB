@@ -1,0 +1,62 @@
+document.querySelector(".search-btn").addEventListener("click", getWeather);
+
+async function getWeather() {
+    const city = document.querySelector(".city-input").value;
+    const apiKey = "5e924d7c1ad3543a848629769be2f0b3";  // Reemplaza con tu API Key de OpenWeatherMap
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=es`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const forecastResponse = await fetch(forecastUrl);
+        const forecastData = await forecastResponse.json();
+
+        if (data.cod === "404") {
+            // Muestra mensaje de ciudad no encontrada
+            document.querySelector(".not-found").style.display = "block";
+            document.querySelector(".weather-info").style.display = "none";
+        } else {
+            // Muestra la información meteorológica actual
+            document.querySelector(".location .country-txt").innerText = `${data.name}, ${data.sys.country}`;
+            document.querySelector(".current-date-txt").innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.querySelector(".temp-txt").innerText = `${Math.round(data.main.temp)} °C`;
+            document.querySelector(".condition-txt").innerText = data.weather[0].description;
+            document.querySelector(".humidity-value-txt").innerText = `${data.main.humidity}%`;
+            document.querySelector(".wind-value-txt").innerText = `${data.wind.speed} m/s`;
+
+            // Actualiza el ícono del clima
+            const weatherIcon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+            document.querySelector(".weather-summary-img").src = weatherIcon;
+            
+            // Actualiza el pronóstico del clima para los próximos días
+            const forecastContainer = document.querySelector(".forecast-items-container");
+            forecastContainer.innerHTML = ''; // Limpiar los elementos anteriores
+
+            for (let i = 1; i <= 4; i++) {
+                const dayData = forecastData.list[i * 8];  // O también puedes ajustar el índice a i, dependiendo del formato de la respuesta
+                const forecastDate = new Date(dayData.dt * 1000).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+                const weatherIcon = `https://openweathermap.org/img/wn/${dayData.weather[0].icon}@2x.png`;
+                const temp = `${Math.round(dayData.main.temp)} °C`;
+            
+                const forecastItem = `
+                    <div class="forecast-item bg-light p-2 rounded-3">
+                        <h5 class="forecast-item-date">${forecastDate}</h5>
+                        <img src="${weatherIcon}" class="forecast-item-img" />
+                        <h5 class="forecast-item-temp">${temp}</h5>
+                    </div>
+                `;
+                forecastContainer.innerHTML += forecastItem;
+            }
+
+            // Muestra la información del clima
+            document.querySelector(".weather-info").style.display = "block";
+            document.querySelector(".not-found").style.display = "none";
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Ocurrió un error al obtener la información.");
+    }
+    
+}
